@@ -88,16 +88,6 @@ namespace GoodBoy.Modules
                         x.IsInline = false;
                     });
                 }
-                else if (cmd.Parameters.Count == 1)
-                {
-                    embed.AddField(x =>
-                    {
-                        x.Name = $"Command: {cmd.Name}";
-                        x.Value = $"`Summary:` {cmd.Summary}\n" +
-                        $"`Usage:` {prefix}{cmd.Name} <{string.Join("", cmd.Parameters)}>\n";
-                        x.IsInline = false;
-                    });
-                }
                 else
                 {
                     embed.AddField(x =>
@@ -105,6 +95,7 @@ namespace GoodBoy.Modules
                         x.Name = $"Command: {cmd.Name}";
                         x.Value = $"`Summary:` {cmd.Summary}\n" +
                         $"`Usage:` {prefix}{cmd.Name} {parameters}";
+                        x.IsInline = false;
                     });
                 }
             }
