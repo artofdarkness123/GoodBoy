@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Discord;
 using Discord.WebSocket;
 using GoodBoy.MessageHandlers;
+using GoodBoy.Utilities;
 
 namespace GoodBoy
 {
@@ -20,6 +21,12 @@ namespace GoodBoy
             if (Config.bot.token == "" || Config.bot.token == null)
             {
                 Console.WriteLine("You need a token in the config file for the bot to run.");
+            }
+
+            if (!DBManager.TableExists("BadWords")) //TODO: Change to something else.
+            {
+                DBManager.CreateDatabase();
+                DBManager.BuildTables();
             }
 
             _client = new DiscordSocketClient(new DiscordSocketConfig

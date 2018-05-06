@@ -5,6 +5,7 @@ using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
 using System.Threading.Tasks;
+using GoodBoy.Services;
 
 namespace GoodBoy.MessageHandlers
 {
@@ -27,9 +28,15 @@ namespace GoodBoy.MessageHandlers
             if (context.Message.Author == _client.CurrentUser) return;
             if (string.IsNullOrWhiteSpace(msg.Content.ToString())) return;
 
-            //Implement antispam...
+            List<string> BadWords = AntiSpamService.GetWords();
 
-            await Task.CompletedTask;
+            for (int i = 0; i < BadWords.Count; i++)
+            {
+                if (msg.Content == BadWords[i])
+                {
+                    await msg.DeleteAsync();
+                }
+            }
         }
     }
 }
