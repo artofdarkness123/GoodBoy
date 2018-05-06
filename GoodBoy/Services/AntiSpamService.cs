@@ -22,7 +22,6 @@ namespace GoodBoy.Services
             dbConnection.Close();
         }
 
-        //TODO: Implement
         public static void RemoveWord(string word)
         {
             SQLiteConnection dbConnection;

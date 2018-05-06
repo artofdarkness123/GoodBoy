@@ -32,9 +32,12 @@ namespace GoodBoy.MessageHandlers
 
             for (int i = 0; i < BadWords.Count; i++)
             {
-                if (msg.Content == BadWords[i])
+                if (msg.Author.Id != context.Client.CurrentUser.Id)
                 {
-                    await msg.DeleteAsync();
+                    if (msg.Content.Contains(BadWords[i]))
+                    {
+                        await msg.DeleteAsync();
+                    }
                 }
             }
         }
