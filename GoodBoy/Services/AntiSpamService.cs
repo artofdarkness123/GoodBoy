@@ -11,7 +11,7 @@ namespace GoodBoy.Services
         public static void AddWord(string word)
         {
             SQLiteConnection dbConnection;
-            dbConnection = new SQLiteConnection("Data Source=database.sqlite;Version=3");
+            dbConnection = new SQLiteConnection("Data Source=Resources/database.sqlite;Version=3");
             dbConnection.Open();
 
             string sql = $"INSERT INTO BadWords (badword) values ('{word}')";
@@ -26,7 +26,7 @@ namespace GoodBoy.Services
         public static void RemoveWord(string word)
         {
             SQLiteConnection dbConnection;
-            dbConnection = new SQLiteConnection("Data Source=database.sqlite;Version=3");
+            dbConnection = new SQLiteConnection("Data Source=Resources/database.sqlite;Version=3");
             dbConnection.Open();
 
             string sql = $"DELETE FROM BadWords WHERE badword = '{word}'";
@@ -40,7 +40,7 @@ namespace GoodBoy.Services
         public static string ListWords()
         {
             SQLiteConnection dbConnection;
-            dbConnection = new SQLiteConnection("Data Source=database.sqlite;Version=3");
+            dbConnection = new SQLiteConnection("Data Source=Resources/database.sqlite;Version=3");
             dbConnection.Open();
 
             string sql = "SELECT badword FROM BadWords";
@@ -61,7 +61,7 @@ namespace GoodBoy.Services
         public static List<string> GetWords()
         {
             SQLiteConnection dbConnection;
-            dbConnection = new SQLiteConnection("Data Source=database.sqlite;Version=3");
+            dbConnection = new SQLiteConnection("Data Source=Resources/database.sqlite;Version=3");
             dbConnection.Open();
 
             string sql = "SELECT badword FROM BadWords";

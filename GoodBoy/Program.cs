@@ -23,9 +23,13 @@ namespace GoodBoy
                 Console.WriteLine("You need a token in the config file for the bot to run.");
             }
 
-            if (!DBManager.TableExists("BadWords")) //TODO: Change to something else.
+            if (!DBManager.DatabaseExists())
             {
                 DBManager.CreateDatabase();
+            }
+
+            if (!DBManager.TableExists("BadWords")) //TODO: Change to something else.
+            {
                 DBManager.BuildTables();
             }
 

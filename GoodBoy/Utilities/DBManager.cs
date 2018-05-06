@@ -13,13 +13,13 @@ namespace GoodBoy.Utilities
         {
             if (!DatabaseExists())
             { 
-                SQLiteConnection.CreateFile("database.sqlite");
+                SQLiteConnection.CreateFile("Resources/database.sqlite");
                 SQLiteConnection dbConnection;
-                dbConnection = new SQLiteConnection("Data Source=database.sqlite;Version=3");
+                dbConnection = new SQLiteConnection("Data Source=Resources/database.sqlite;Version=3");
             }
         }
 
-        private static bool DatabaseExists()
+        public static bool DatabaseExists()
         {
             return File.Exists("Resources/database.sqlite");
         }
@@ -27,7 +27,7 @@ namespace GoodBoy.Utilities
         public static void BuildTables()
         {
             SQLiteConnection dbConnection;
-            dbConnection = new SQLiteConnection("Data Source=database.sqlite;Version=3");
+            dbConnection = new SQLiteConnection("Data Source=Resources/database.sqlite;Version=3");
             dbConnection.Open();
 
             //Quotes..... if I ever want them in the future... I will prob have a better way of doing it by then though..
@@ -45,7 +45,7 @@ namespace GoodBoy.Utilities
         public static void RunCommand(string commandText)
         {
             SQLiteConnection dbConnection;
-            dbConnection = new SQLiteConnection("Data Source=database.sqlite;Version=3");
+            dbConnection = new SQLiteConnection("Data Source=Resources/database.sqlite;Version=3");
             dbConnection.Open();
 
             SQLiteCommand command = new SQLiteCommand(commandText, dbConnection);
@@ -58,7 +58,7 @@ namespace GoodBoy.Utilities
         public static bool TableExists(string tableName)
         {
             SQLiteConnection dbConnection;
-            dbConnection = new SQLiteConnection("Data Source=database.sqlite;Version=3");
+            dbConnection = new SQLiteConnection("Data Source=Resources/database.sqlite;Version=3");
             dbConnection.Open();
 
             using (SQLiteCommand command = new SQLiteCommand())
