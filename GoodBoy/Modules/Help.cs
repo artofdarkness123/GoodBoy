@@ -19,7 +19,7 @@ namespace GoodBoy.Modules
         [Command("help"), Summary("Get a list of all of the commands.")]
         public async Task HelpAsync()
         {
-            string prefix = Config.bot.prefix;
+            string prefix = Program._configHelper.Bot.Prefix;
             var embed = new EmbedBuilder()
             {
                 Color = Color.Green,
@@ -62,7 +62,7 @@ namespace GoodBoy.Modules
                 return;
             }
 
-            string prefix = Config.bot.prefix;
+            string prefix = Program._configHelper.Bot.Prefix;
             var embed = new EmbedBuilder()
             {
                 Color = Color.Green
