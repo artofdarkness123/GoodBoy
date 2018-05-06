@@ -45,6 +45,13 @@ namespace GoodBoy.Modules
             }
         }
 
+        [Command("blacklist"), Summary("Outputs a list of all the blacklisted words.")]
+        public async Task ListWordsAsync()
+        {
+            var result = AntiSpamService.ListWords();
+            await ReplyAsync(String.IsNullOrWhiteSpace(result) ? "<emptyset>" : result);
+        }
+
         [Command("blacklist"), Summary("Clears the blacklist.")]
         public async Task ClearBlackListAsync(string clear)
         {

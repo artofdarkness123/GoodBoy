@@ -14,7 +14,7 @@ namespace GoodBoy.Services
             dbConnection = new SQLiteConnection("Data Source=Resources/database.sqlite;Version=3");
             dbConnection.Open();
 
-            string sql = $"INSERT INTO BadWords (badword) values ('{word}')";
+            string sql = $"INSERT INTO BadWords (badword, CreateDateUTC) values ('{word}', '{DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss.fff")}')";
             SQLiteCommand command = new SQLiteCommand(sql, dbConnection);
             command.ExecuteNonQuery();
 
@@ -42,14 +42,15 @@ namespace GoodBoy.Services
             dbConnection = new SQLiteConnection("Data Source=Resources/database.sqlite;Version=3");
             dbConnection.Open();
 
-            string sql = "SELECT badword FROM BadWords";
+            string sql = "SELECT badword, CreateDateUTC FROM BadWords";
             SQLiteCommand command = new SQLiteCommand(sql, dbConnection);
             SQLiteDataReader reader = command.ExecuteReader();
 
             string builder = "";
             while (reader.Read())
             {
-                builder += "`" + reader.GetString(reader.GetOrdinal("badword")) + "`  ";
+                builder += "bad word `" + reader.GetString(reader.GetOrdinal("badword")) + "` " 
+                    + "added on date " + reader.GetDateTime(reader.GetOrdinal("CreateDateUTC"))  + " UTC ";
             }
 
             command.Dispose();
