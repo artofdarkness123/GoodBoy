@@ -2,17 +2,17 @@
 using System.IO;
 using Newtonsoft.Json;
 
-namespace GoodBoy
+namespace DiscordHelpers
 {
-    class Config
+    public class ConfigHelper
     {
         private const string configFolder = "Resources";
         private const string configFile = "config.json";
         private const string fileAndFolder = "Resources/config.json";
+        
+        public BotConfig Bot { get; set; }
 
-        public static BotConfig bot;
-
-        static Config()
+        public void Init()
         {
             if (!Directory.Exists(configFolder))
             {
@@ -21,21 +21,21 @@ namespace GoodBoy
 
             if (!File.Exists(fileAndFolder))
             {
-                bot = new BotConfig();
-                string json = JsonConvert.SerializeObject(bot, Formatting.Indented);
+                this.Bot = new BotConfig();
+                string json = JsonConvert.SerializeObject(this.Bot, Formatting.Indented);
                 File.WriteAllText(fileAndFolder, json);
             }
             else
             {
                 string json = File.ReadAllText(fileAndFolder);
-                bot = JsonConvert.DeserializeObject<BotConfig>(json);
+                this.Bot = JsonConvert.DeserializeObject<BotConfig>(json);
             }
         }
 
-        public struct BotConfig
+        public void Save()
         {
-            public string token;
-            public string prefix;
+            string json = JsonConvert.SerializeObject(this.Bot, Formatting.Indented);
+            File.WriteAllText(fileAndFolder, json);
         }
     }
 }

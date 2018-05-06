@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Discord;
 using Discord.WebSocket;
+using DiscordHelpers;
 using GoodBoy.MessageHandlers;
 
 namespace GoodBoy
@@ -12,12 +13,21 @@ namespace GoodBoy
         private CommandHandler _chandler;
         private OnMessage _mhandler;
 
+        public static ConfigHelper _configHelper;
+
         static void Main(string[] args)
-            => new Program().StartAsync().GetAwaiter().GetResult();
+        {
+            var p = new Program();
+            var myTask = p.StartAsync();
+            var myAwaiter = myTask.GetAwaiter();
+            myAwaiter.GetResult();
+        }
 
         public async Task StartAsync()
         {
-            if (Config.bot.token == "" || Config.bot.token == null)
+            _configHelper = new ConfigHelper();
+            _configHelper.Init();
+            if (String.IsNullOrWhiteSpace(_configHelper.Bot.Token))
             {
                 Console.WriteLine("You need a token in the config file for the bot to run.");
             }
@@ -30,7 +40,7 @@ namespace GoodBoy
 
             _client.Log += Log;
 
-            await _client.LoginAsync(TokenType.Bot, Config.bot.token, true);
+            await _client.LoginAsync(TokenType.Bot, _configHelper.Bot.Token, true);
             await _client.StartAsync();
             await _client.SetGameAsync("with a ball.");
 

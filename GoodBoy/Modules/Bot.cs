@@ -14,14 +14,15 @@ namespace GoodBoy.Modules
         [RequireOwner]
         public async Task SetPrefixAsync(string prefix)
         {
-            Config.bot.prefix = prefix;
+            Program._configHelper.Bot.Prefix = prefix;
             await ReplyAsync($"Successfully set the prefix to `{prefix}`");
+            Program._configHelper.Save();
         }
 
         [Command("prefix"), Summary("Gets the current bot prefix.")]
         public async Task GetPrefixAsync()
         {
-            await ReplyAsync($"The current bot prefix is `{Config.bot.prefix}`");
+            await ReplyAsync($"The current bot prefix is `{Program._configHelper.Bot.Prefix}`");
         }
 
         [Command("ping"), Summary("Pings the bot.")]
