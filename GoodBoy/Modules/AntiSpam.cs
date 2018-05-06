@@ -11,28 +11,37 @@ namespace GoodBoy.Modules
 {
     public class AntiSpam : ModuleBase<SocketCommandContext>
     {
-        //TODO: Implement
-        [Command("addword"), Summary("Add a word to the blacklist.")]
-        public async Task BlackListAsync([Remainder] string word)
-        {
-            AntiSpamService.AddWord(word);
-
-            await ReplyAsync($"Added `{word}` to the blacklist.");
-        }
-
-        //TODO: Implement
-        [Command("removeword"), Summary("Remove a word from the blacklist.")]
-        public async Task UnBlackListAsync([Remainder] string word)
-        {
-            AntiSpamService.RemoveWord(word);
-
-            await ReplyAsync($"Removed `{word}` from the blacklist.");
-        }
-
         [Command("blacklist"), Summary("Outputs a list of all the blacklisted words.")]
         public async Task ListWordsAsync()
         {
             await ReplyAsync(AntiSpamService.ListWords());
         }
+
+        [Command("blacklist"), Summary("Add / Remove a word to the blacklist")]
+        public async Task AddWordToBlackListAsync(string AddOrRemove, [Remainder] string word)
+        {
+            if (AddOrRemove.Contains("add"))
+            {
+                AntiSpamService.AddWord(word);
+                await ReplyAsync($"Added `{word}` to the blacklist.");
+            }
+            else if (AddOrRemove.Contains("remove"))
+            {
+                AntiSpamService.RemoveWord(word);
+                await ReplyAsync($"Removed `{word}` from the blacklist");
+            }
+            else
+            {
+                return;
+            }
+        }
+
+        //[Command("blacklist"), Summary("Remove a word from the blacklist.")]
+        //public async Task RemoveWordFromBlackListAsync(string remove, [Remainder] string word)
+        //{
+        //    AntiSpamService.RemoveWord(word);
+
+        //    await ReplyAsync($"Removed `{word}` from the blacklist");
+        //}
     }
 }

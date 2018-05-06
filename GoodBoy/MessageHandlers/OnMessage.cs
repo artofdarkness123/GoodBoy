@@ -36,6 +36,7 @@ namespace GoodBoy.MessageHandlers
                 {
                     if (msg.Content.ToUpper().Contains(BadWords[i].ToUpper()))
                     {
+                        await msg.Author.SendMessageAsync($"Your message in `{context.Guild.Name}` - `#{context.Channel.Name}` has been deleted due to the antispam preferences.");
                         await msg.DeleteAsync();
                     }
                 }
