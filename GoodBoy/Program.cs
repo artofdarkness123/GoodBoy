@@ -14,7 +14,7 @@ namespace GoodBoy
         private CommandHandler _chandler;
         private OnMessage _mhandler;
 
-        public static ConfigHelper _configHelper;
+        public static ConfigHelper ConfigHelper;
 
         static void Main(string[] args)
         {
@@ -26,17 +26,17 @@ namespace GoodBoy
 
         public async Task StartAsync()
         {
-            _configHelper = new ConfigHelper();
-            _configHelper.Init();
-            if (String.IsNullOrWhiteSpace(_configHelper.Bot.Token))
-            {
+            ConfigHelper = new ConfigHelper();
+            ConfigHelper.Init();
+
+            if (String.IsNullOrWhiteSpace(ConfigHelper.Bot.Token))
                 Console.WriteLine("You need a token in the config file for the bot to run.");
-            }
+
+            if (String.IsNullOrWhiteSpace(ConfigHelper.Bot.Prefix))
+                Console.WriteLine("You need a prefix for the bot to work!");
 
             if (!DBManager.DatabaseExists())
-            {
                 DBManager.CreateDatabase();
-            }
 
             if (!DBManager.TableExists("BadWords")) //TODO: Change to something else.
             {
@@ -51,7 +51,7 @@ namespace GoodBoy
 
             _client.Log += Log;
 
-            await _client.LoginAsync(TokenType.Bot, _configHelper.Bot.Token, true);
+            await _client.LoginAsync(TokenType.Bot, ConfigHelper.Bot.Token, true);
             await _client.StartAsync();
             await _client.SetGameAsync("with a ball.");
 

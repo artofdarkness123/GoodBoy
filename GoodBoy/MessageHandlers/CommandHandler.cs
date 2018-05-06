@@ -31,14 +31,14 @@ namespace GoodBoy.MessageHandlers
             if (context.Message.Author == _client.CurrentUser) return;
             if (msg.Content == null) return;
 
-            if (msg.HasStringPrefix(Program._configHelper.Bot.Prefix, ref argPos) || msg.HasMentionPrefix(_client.CurrentUser, ref argPos))
+            if (msg.HasStringPrefix(Program.ConfigHelper.Bot.Prefix, ref argPos) || msg.HasMentionPrefix(_client.CurrentUser, ref argPos))
             {
                 var result = await _service.ExecuteAsync(context, argPos);
 
                 if (result.Error == CommandError.UnknownCommand)
                 {
                     Console.WriteLine($"Unknown command sent in #{context.Channel.ToString()} in the server {context.Guild.ToString()}");
-                    await context.Channel.SendMessageAsync($"{Emotes.GetEmote("redmark")} Unknown command. Do `{Program._configHelper.Bot.Prefix}help` for a list of commands :)");
+                    await context.Channel.SendMessageAsync($"{Emotes.GetEmote("redmark")} Unknown command. Do `{Program.ConfigHelper.Bot.Prefix}help` for a list of commands :)");
                 }
 
                 if (!result.IsSuccess && result.Error != CommandError.UnknownCommand)
