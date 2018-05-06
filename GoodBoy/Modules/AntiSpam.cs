@@ -11,12 +11,6 @@ namespace GoodBoy.Modules
 {
     public class AntiSpam : ModuleBase<SocketCommandContext>
     {
-        [Command("blacklist"), Summary("Outputs a list of all the blacklisted words.")]
-        public async Task ListWordsAsync()
-        {
-            await ReplyAsync(AntiSpamService.ListWords());
-        }
-
         [Command("blacklist"), Summary("Add a word to the blacklist.")]
         public async Task AddWordToBlackListAsync(string add, [Remainder] string word)
         {
@@ -43,6 +37,13 @@ namespace GoodBoy.Modules
             {
                 return;
             }
+        }
+
+        [Command("blacklist"), Summary("Outputs a list of all the blacklisted words.")]
+        public async Task ListWordsAsync()
+        {
+            var result = AntiSpamService.ListWords();
+            await ReplyAsync(String.IsNullOrWhiteSpace(result) ? "<emptyset>" : result);
         }
 
         [Command("blacklist"), Summary("Clears the blacklist.")]

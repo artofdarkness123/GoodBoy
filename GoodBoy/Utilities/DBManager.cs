@@ -35,7 +35,7 @@ namespace GoodBoy.Utilities
             //SQLiteCommand command = new SQLiteCommand(quotes, dbConnection);
             //command.ExecuteNonQuery();
 
-            string AntiSpam = "CREATE TABLE BadWords (badword VARCHAR(100))";
+            string AntiSpam = "CREATE TABLE BadWords (Id INTEGER PRIMARY KEY, badword VARCHAR(100) NOT NULL, CreateDateUTC DateTime NOT NULL)";
             SQLiteCommand command = new SQLiteCommand(AntiSpam, dbConnection);
             command.ExecuteNonQuery();
 
