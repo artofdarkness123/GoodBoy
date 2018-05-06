@@ -34,7 +34,7 @@ namespace GoodBoy.MessageHandlers
             {
                 if (msg.Author.Id != context.Client.CurrentUser.Id)
                 {
-                    if (msg.Content.Contains(BadWords[i]))
+                    if (msg.Content.ToUpper().Contains(BadWords[i].ToUpper()))
                     {
                         await msg.DeleteAsync();
                     }
