@@ -57,6 +57,20 @@ namespace GoodBoy.Services
             return builder;
         }
 
+        public static void ClearList()
+        {
+            SQLiteConnection dbConnection;
+            dbConnection = new SQLiteConnection("Data Source=Resources/database.sqlite;Version=3");
+            dbConnection.Open();
+
+            string sql = "DELETE FROM BadWords";
+            SQLiteCommand command = new SQLiteCommand(sql, dbConnection);
+            command.ExecuteNonQuery();
+
+            command.Dispose();
+            dbConnection.Dispose();
+        }
+
         public static List<string> GetWords()
         {
             SQLiteConnection dbConnection;

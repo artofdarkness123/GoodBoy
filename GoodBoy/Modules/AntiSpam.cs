@@ -17,18 +17,41 @@ namespace GoodBoy.Modules
             await ReplyAsync(AntiSpamService.ListWords());
         }
 
-        [Command("blacklist"), Summary("Add / Remove a word to the blacklist")]
-        public async Task AddWordToBlackListAsync(string AddOrRemove, [Remainder] string word)
+        [Command("blacklist"), Summary("Add a word to the blacklist.")]
+        public async Task AddWordToBlackListAsync(string add, [Remainder] string word)
         {
-            if (AddOrRemove.Contains("add"))
+            if (add.Contains("add"))
             {
                 AntiSpamService.AddWord(word);
                 await ReplyAsync($"Added `{word}` to the blacklist.");
             }
-            else if (AddOrRemove.Contains("remove"))
+            else
+            {
+                return;
+            }
+        }
+
+        [Command("blacklist"), Summary("Remove a word from the blacklist.")]
+        public async Task RemoveWordFromBlacklistAsync(string remove, [Remainder] string word)
+        {
+            if (remove.Contains("remove"))
             {
                 AntiSpamService.RemoveWord(word);
-                await ReplyAsync($"Removed `{word}` from the blacklist");
+                await ReplyAsync($"Removed `{word}` from the blacklist.");
+            }
+            else
+            {
+                return;
+            }
+        }
+
+        [Command("blacklist"), Summary("Clears the blacklist.")]
+        public async Task ClearBlackListAsync(string clear)
+        {
+            if (clear.Contains("clear"))
+            {
+                AntiSpamService.ClearList();
+                await ReplyAsync("Cleared the blacklist");
             }
             else
             {
