@@ -35,13 +35,5 @@ namespace GoodBoy.Modules
                 return;
             }
         }
-
-        //[Command("blacklist"), Summary("Remove a word from the blacklist.")]
-        //public async Task RemoveWordFromBlackListAsync(string remove, [Remainder] string word)
-        //{
-        //    AntiSpamService.RemoveWord(word);
-
-        //    await ReplyAsync($"Removed `{word}` from the blacklist");
-        //}
     }
 }
